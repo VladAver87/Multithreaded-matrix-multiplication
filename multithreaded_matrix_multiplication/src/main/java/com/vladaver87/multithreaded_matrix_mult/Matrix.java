@@ -11,22 +11,16 @@ public final class Matrix {
 		this.row = row;
 		this.col = col;
 		data = new int[row][col];
-	}
-	
-	public static Matrix createNewMatrix(int row, int col) {
-		Matrix matrix = new Matrix(row, col);
-		matrix.fillNewMatrix(matrix);
-		return matrix;
-	}
-
-	private Matrix fillNewMatrix(Matrix matrix) {
 		final Random random = new Random();
 		for (int i = 0; i < row; i++) {
 			for (int j  = 0; j < col; j++) {
-				matrix.data[i][j] = random.nextInt(100);		
+				data[i][j] = random.nextInt(100);		
 			}
 		}
-		return matrix;
+	}
+	
+	public static Matrix createNewMatrix(int row, int col) {
+		return new Matrix(row, col);
 	}
 
 	public void printMatrix(Matrix matrix) {
