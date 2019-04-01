@@ -7,7 +7,7 @@ public final class Matrix {
 	private final int col;
 	private final int[][]data;
 
-	private Matrix(int row, int col) {
+	public Matrix(int row, int col) {
 		this.row = row;
 		this.col = col;
 		data = new int[row][col];
@@ -19,20 +19,17 @@ public final class Matrix {
 		}
 	}
 	
-	public static Matrix createNewMatrix(int row, int col) {
-		return new Matrix(row, col);
-	}
-
-	public int[][] getData() {
-		return data;
-	}
-
 	public int getRow() {
 		return row;
 	}
 
 	public int getCol() {
 		return col;
+	}
+	
+	public int getElement(int i, int j){
+		return data[i][j];
+		
 	}
 
 	public static void printMatrix(Matrix matrix) {
