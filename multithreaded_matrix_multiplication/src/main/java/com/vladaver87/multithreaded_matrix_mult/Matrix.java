@@ -14,18 +14,19 @@ public final class Matrix {
 	}
 	
 	public static Matrix createNewMatrix(int row, int col) {
-		return new Matrix(row, col);
+		Matrix matrix = new Matrix(row, col);
+		matrix.fillNewMatrix(matrix);
+		return matrix;
 	}
 
-	public Matrix fillNewMatrix() {
+	private Matrix fillNewMatrix(Matrix matrix) {
 		final Random random = new Random();
-		Matrix result = new Matrix(row, col);
 		for (int i = 0; i < row; i++) {
 			for (int j  = 0; j < col; j++) {
-				result.data[i][j] = random.nextInt(100);		
+				matrix.data[i][j] = random.nextInt(100);		
 			}
 		}
-		return result;
+		return matrix;
 	}
 
 	public void printMatrix(Matrix matrix) {
