@@ -23,9 +23,21 @@ public final class Matrix {
 		return new Matrix(row, col);
 	}
 
-	public void printMatrix(Matrix matrix) {
-		for (int i = 0; i < row; i++) {
-			for (int j  = 0; j < col; j++) {
+	public int[][] getData() {
+		return data;
+	}
+
+	public int getRow() {
+		return row;
+	}
+
+	public int getCol() {
+		return col;
+	}
+
+	public static void printMatrix(Matrix matrix) {
+		for (int i = 0; i < matrix.row; i++) {
+			for (int j  = 0; j < matrix.col; j++) {
 				System.out.print(" " + matrix.data[i][j]);
 			}
 			System.out.println();

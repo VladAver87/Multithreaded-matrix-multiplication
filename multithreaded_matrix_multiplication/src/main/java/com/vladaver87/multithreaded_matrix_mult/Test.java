@@ -4,8 +4,10 @@ public class Test {
 
 	public static void main(String[] args) {
 		Matrix m1 = Matrix.createNewMatrix(2, 2);
+		Matrix m2 = Matrix.createNewMatrix(2, 2);
+		SimpleMatrixMultiply simpleMatrixMultiply = new SimpleMatrixMultiply();
 
-		m1.printMatrix(m1);
+		Matrix.printMatrix(simpleMatrixMultiply.multiply(m1, m2));
 	}
 
 }
