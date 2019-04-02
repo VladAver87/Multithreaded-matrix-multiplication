@@ -19,6 +19,12 @@ public final class Matrix {
 		}
 	}
 	
+	public Matrix(int[][] matrix) {
+		this.row = matrix.length;
+		this.col = matrix[0].length;
+		data = matrix;
+	}
+	
 	public int getRow() {
 		return row;
 	}
