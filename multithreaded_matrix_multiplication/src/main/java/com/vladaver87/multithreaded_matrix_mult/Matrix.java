@@ -22,7 +22,12 @@ public final class Matrix {
 	public Matrix(int[][] matrix) {
 		this.row = matrix.length;
 		this.col = matrix[0].length;
-		data = matrix;
+		data = new int[row][col];
+		for (int i = 0; i < row; i++) {
+			for (int j  = 0; j < col; j++) {
+				data[i][j] = matrix[i][j];		
+			}
+		}
 	}
 	
 	public int getRow() {

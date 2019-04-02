@@ -6,7 +6,7 @@ public class SimpleMatrixMultiply implements IMultiply {
 		int rowCount = matrix1.getRow();
 		int colCount = matrix2.getCol();
 		if (rowCount != colCount) throw new RuntimeException("Multiply is not avalable");
-		int [][]resultArr = new int[rowCount][colCount];
+		final int [][]resultArr = new int[rowCount][colCount];
 		for (int i = 0; i < rowCount; i++) {
 			for (int j = 0; j < colCount; j++) {
 				for (int k = 0; k < matrix1.getCol(); k++) {
