@@ -18,5 +18,5 @@ public class SimpleMatrixMultiply implements IMultiply {
 		Matrix result = new Matrix(resultArr);
 		return result;
 	}
-
+	
 }

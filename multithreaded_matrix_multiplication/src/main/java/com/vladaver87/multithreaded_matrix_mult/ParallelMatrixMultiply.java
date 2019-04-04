@@ -2,9 +2,11 @@ package com.vladaver87.multithreaded_matrix_mult;
 
 public class ParallelMatrixMultiply implements IMultiply{
 	private int startIndex;
+	private int endIndex;
 	
-	public ParallelMatrixMultiply(int startIndex) {
+	public ParallelMatrixMultiply(int startIndex, int endIndex) {
 		this.startIndex = startIndex;
+		this.endIndex = endIndex;
 	}
 	
 
@@ -12,10 +14,14 @@ public class ParallelMatrixMultiply implements IMultiply{
 		int rowCount = matrix1.getRow();
 		int colCount = matrix2.getCol();
 		if (rowCount != colCount) throw new RuntimeException("Multiply is not avalable");
-		Multiplayer multiplayer = new Multiplayer(matrix1, matrix2, startIndex);
-		Thread thread = new Thread(multiplayer);
-			thread.start();
-			thread.join();
+		MultiplyJob multiplayer = new MultiplyJob(matrix1, matrix2, startIndex, endIndex);
+		Thread[] threads = new Thread[matrix1.getRow() * matrix2.getCol()];
+			for (int i = 0; i < threads.length; i++) {
+				threads[i] = new Thread(new MultiplyJob(matrix1, matrix2, startIndex, endIndex));
+				threads[i].start();			
+				startIndex = endIndex;
+				endIndex????
+			}
 			
 		return new Matrix(multiplayer.getResultArr());
 	}	
