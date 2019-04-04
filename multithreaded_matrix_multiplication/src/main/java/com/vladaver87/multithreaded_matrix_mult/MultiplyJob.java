@@ -2,29 +2,31 @@ package com.vladaver87.multithreaded_matrix_mult;
 
 public class MultiplyJob implements Runnable{
 
-	private int[][] resultArr;
+	private int[][] result;
 	private final Matrix matrix1;
 	private final Matrix matrix2;
-	private int startIndex;
-	private int endIndex;
+	private int firstIndex;
+	private int lastIndex;
 	
-	public MultiplyJob(Matrix matrix1, Matrix matrix2, int startIndex, int endIndex) {
-		this.startIndex = startIndex;
-		this.endIndex = endIndex;
+	public MultiplyJob(Matrix matrix1, Matrix matrix2, int firstIndex, int lastIndex, int[][] result) {
+		this.result = result;
+		this.firstIndex = firstIndex;
+		this.lastIndex = lastIndex;
 		this.matrix1 = matrix1;
 		this.matrix2 = matrix2;
-		resultArr = new int[matrix1.getRow()][matrix2.getCol()];
-	}
-
-	public int[][] getResultArr() {
-		return resultArr;
 	}
 
 	
+	private void sum(int i, int j) {
+			for (int k = 0; k < result.length; k++) {
+				result[i][j] += matrix1.getElement(i, k) * matrix2.getElement(k, j);				
+			}	
+	}
+	
 	public void run() {
-		for (int k = 0; k < resultArr.length; k++) {
-			resultArr[startIndex][endIndex] += matrix1.getElement(startIndex, k) * matrix2.getElement(k, endIndex);				
-		}	
+		for (int index = firstIndex; index < lastIndex; ++index) {
+			sum(index, index);
+		}
 	}
 
 }
