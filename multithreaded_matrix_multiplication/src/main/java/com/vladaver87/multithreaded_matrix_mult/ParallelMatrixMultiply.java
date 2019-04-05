@@ -18,19 +18,19 @@ public class ParallelMatrixMultiply implements IMultiply {
 		for (int i = 0; i < threads.length; i++) {
 			for (int j = 0; j < threads[0].length; j++) {
 				service.execute(new MultiplyJob(matrix1, matrix2, i, j, result));
-				
-			}		
-		}		
+
+			}
+		}
 		service.shutdown();
 		try {
 			service.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		long finish = System.nanoTime();
 		long time = finish - start;
-		
-		System.out.println("Время работы параллельного перемножения " + time);		
+
+		System.out.println("Время работы параллельного перемножения " + time);
 		return new Matrix(result);
 	}
 
