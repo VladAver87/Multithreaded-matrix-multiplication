@@ -1,5 +1,8 @@
 package com.vladaver87.multithreaded_matrix_mult;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class ParallelMatrixMultiply implements IMultiply {
 
 	public Matrix multiply(Matrix matrix1, Matrix matrix2) throws InterruptedException {
@@ -9,19 +12,20 @@ public class ParallelMatrixMultiply implements IMultiply {
 		if (rowCount != colCount)
 			throw new RuntimeException("Multiply is not avalable");
 		Thread[][] threads = new Thread[matrix1.getRow()][matrix2.getCol()];
+		ExecutorService service = Executors.newFixedThreadPool(4);
 		long start = System.nanoTime();
 		for (int i = 0; i < threads.length; i++) {
 			for (int j = 0; j < threads[0].length; j++) {
-				threads[i][j] = new Thread(new MultiplyJob(matrix1, matrix2, i, j, result));
-				threads[i][j].start();
-
+				service.execute(new MultiplyJob(matrix1, matrix2, i, j, result));
+				
 			}
 		}
 		for (int i = 0; i < threads.length; i++) {
 			for (int j = 0; j < threads[0].length; j++) {
-				threads[i][j].join();
+				service.submit(new MultiplyJob(matrix1, matrix2, i, j, result));
 			}
 		}
+		service.shutdown();
 		long finish = System.nanoTime();
 		long time = finish - start;
 		System.out.println("Время работы параллельного перемножения " + time);
