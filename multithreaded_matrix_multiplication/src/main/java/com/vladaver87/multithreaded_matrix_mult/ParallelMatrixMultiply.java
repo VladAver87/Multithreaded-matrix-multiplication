@@ -2,6 +2,7 @@ package com.vladaver87.multithreaded_matrix_mult;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class ParallelMatrixMultiply implements IMultiply {
 
@@ -18,14 +19,18 @@ public class ParallelMatrixMultiply implements IMultiply {
 			for (int j = 0; j < threads[0].length; j++) {
 				service.execute(new MultiplyJob(matrix1, matrix2, i, j, result));
 				
-			}
-		}
-
+			}		
+		}		
 		service.shutdown();
+		try {
+			service.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		long finish = System.nanoTime();
 		long time = finish - start;
-		System.out.println("Время работы параллельного перемножения " + time);
-
+		
+		System.out.println("Время работы параллельного перемножения " + time);		
 		return new Matrix(result);
 	}
 
