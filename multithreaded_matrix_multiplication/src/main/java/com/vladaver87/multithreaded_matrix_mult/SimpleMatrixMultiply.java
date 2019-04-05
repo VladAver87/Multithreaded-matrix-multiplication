@@ -5,8 +5,10 @@ public class SimpleMatrixMultiply implements IMultiply {
 	public Matrix multiply(Matrix matrix1, Matrix matrix2) {
 		int rowCount = matrix1.getRow();
 		int colCount = matrix2.getCol();
-		if (rowCount != colCount) throw new RuntimeException("Multiply is not avalable");
-		final int [][]resultArr = new int[rowCount][colCount];
+		if (rowCount != colCount)
+			throw new RuntimeException("Multiply is not avalable");
+		final int[][] resultArr = new int[rowCount][colCount];
+		long start = System.nanoTime();
 		for (int i = 0; i < rowCount; i++) {
 			for (int j = 0; j < colCount; j++) {
 				for (int k = 0; k < matrix1.getCol(); k++) {
@@ -15,8 +17,11 @@ public class SimpleMatrixMultiply implements IMultiply {
 				}
 			}
 		}
+		long finish = System.nanoTime();
+		long time = finish - start;
+		System.out.println("Время работы последовательного перемножения " + time);
 		Matrix result = new Matrix(resultArr);
 		return result;
 	}
-	
+
 }
