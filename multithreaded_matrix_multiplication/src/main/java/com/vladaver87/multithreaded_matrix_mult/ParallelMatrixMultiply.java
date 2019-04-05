@@ -9,24 +9,15 @@ public class ParallelMatrixMultiply implements IMultiply{
 		int colCount = matrix2.getCol();
 		final int[][] result = new int[rowCount][colCount];
 		if (rowCount != colCount) throw new RuntimeException("Multiply is not avalable");
-		int threadCount = matrix1.getRow() * matrix2.getCol();
-        int firstIndex = 0;
-        int lastIndex = 0;
-		Thread[] threads = new Thread[threadCount];
+		Thread[][] threads = new Thread[matrix1.getRow()][matrix2.getCol()];
 			for (int i = 0; i < threads.length; i++) {
-				threads[i] = new Thread(new MultiplyJob(matrix1, matrix2, firstIndex, lastIndex , result));
-				threads[i].start();	
-				firstIndex = lastIndex;
-				lastIndex++;
+				for (int j = 0; j < threads[0].length; j++) {
+				threads[i][j] = new Thread(new MultiplyJob(matrix1, matrix2, i, j , result));
+				threads[i][j].start();	
+				threads[i][j].join();
+				}
 			}
 			
-	        try {
-	            for (Thread thread : threads)
-	            	thread.join();
-	        }
-	        catch (InterruptedException e) {
-	            e.printStackTrace();
-	        }
 			
 		return new Matrix(result);
 	}	
